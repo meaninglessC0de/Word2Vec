@@ -27,13 +27,13 @@ def train(model, pairs, noise, word2idx, idx2word):
 
     for epoch in range(config.EPOCHS):
         print(f"epoch {epoch+1}/{config.EPOCHS}")
-    
+
         for (center, context) in pairs:
-            center    = center.to(device)
-            context   = context.to(device)
+            center= center.to(device)
+            context = context.to(device)
             negatives = np.random.choice(len(noise), size=config.BATCH_SIZE * config.NUM_NEGATIVES, p=noise)
-            negatives = torch.tensor(negatives, dtype=torch.long).reshape(config.BATCH_SIZE, config.NUM_NEGATIVES)
-            negatives = negatives.to(device)
+            negatives= torch.tensor(negatives, dtype=torch.long).reshape(config.BATCH_SIZE, config.NUM_NEGATIVES)
+            negatives= negatives.to(device)
             optimiser.zero_grad()
             loss = model(center, context, negatives)
             loss.backward()
@@ -44,7 +44,7 @@ def train(model, pairs, noise, word2idx, idx2word):
                 print(loss.item())
             
         
-        
+    # save results locally    
     torch.save(model.input_embeddings.weight.data, "embeddings/embeddings.pt")
     print("embeddings saved")
 

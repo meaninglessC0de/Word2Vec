@@ -2,7 +2,7 @@ import numpy as np
 from collections import Counter
 
 
-def build_noise_distribution(word_freq: Counter, word2idx: dict[str, int])  -> np.ndarray:
+def build_noise_distribution(word_freq, word2idx)  -> np.ndarray:
     vocab_size = len(word2idx)
     noise = np.zeros(vocab_size)
     for (word, count) in word_freq.items():

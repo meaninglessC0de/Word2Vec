@@ -48,7 +48,7 @@ def build_vocabulary(tokens, min_count, vocab_size):
         
 # n.b., subsampling frequent here words improves the quality of the context we use.
     
-def subsample(corpus: list[int], word_freq: Counter, word2idx: dict[str, int], threshold: float)  -> list[int]:
+def subsample(corpus: list[int], word_freq, word2idx, threshold):
     total_tokens = sum(word_freq.values())
     freq = {}
     for (word,count) in word_freq.items():
@@ -66,7 +66,7 @@ def subsample(corpus: list[int], word_freq: Counter, word2idx: dict[str, int], t
         
     return subsampled
 
-def generate_skipgram_pairs(subsampled: list[int], window_size: int):
+def generate_skipgram_pairs(subsampled, window_size):
     for i in range(len(subsampled)):
         actual_window = random.randint(1,window_size)
         left = max(0, i - actual_window)
