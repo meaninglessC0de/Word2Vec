@@ -12,7 +12,7 @@ def n_nearest_neighbours(word, n, word2idx, idx2word, embeddings):
     return [idx2word[i.item()] for i in indices]
 
 
-    
+
 
 def plot_tsne(words, word2idx, embeddings):
     res = []

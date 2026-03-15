@@ -1,3 +1,6 @@
+# config variables and tunable hyperparameters
+# I have chosen these values from my testing of their observed performances
+
 DATA_PATH           = "data/raw/text8"
 MIN_COUNT           = 5
 VOCAB_SIZE          = 50000

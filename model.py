@@ -6,12 +6,13 @@ class SkipGram(nn.Module):
     
     def __init__(self, vocab_size, embed_dim):
         super().__init__()
-        self.input_embeddings  = nn.Embedding(vocab_size, embed_dim)
+        self.input_embeddings = nn.Embedding(vocab_size, embed_dim)
         self.output_embeddings = nn.Embedding(vocab_size, embed_dim)
 
         nn.init.uniform_(self.input_embeddings.weight, -0.5/embed_dim, 0.5/embed_dim)
         nn.init.uniform_(self.output_embeddings.weight, -0.5/embed_dim, 0.5/embed_dim)
     
+    # sigmoid-based loss function that uses negative sampling 
     def forward(self,centre, context, negatives):
         center_vector = self.input_embeddings(centre)
         context_vector = self.output_embeddings(context)

@@ -3,6 +3,7 @@ import torch
 import config
 import numpy as np
 import json
+
 def train(model, pairs, noise, word2idx, idx2word):
     count = 0 
     if torch.backends.mps.is_available():
@@ -15,6 +16,7 @@ def train(model, pairs, noise, word2idx, idx2word):
     print("Device detected is: ", device)
     optimiser = torch.optim.Adam(model.parameters(), lr=config.LEARNING_RATE)
     total_steps = config.EPOCHS * len(pairs)
+    # scheduler for learning rate decay
     scheduler = torch.optim.lr_scheduler.LinearLR(
         optimiser, 
         start_factor=1.0, 
@@ -25,7 +27,7 @@ def train(model, pairs, noise, word2idx, idx2word):
 
     for epoch in range(config.EPOCHS):
         print(f"epoch {epoch+1}/{config.EPOCHS}")
-
+    
         for (center, context) in pairs:
             center    = center.to(device)
             context   = context.to(device)

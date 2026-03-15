@@ -1,7 +1,4 @@
-#function load_text8(path):
-
 import os
-import json
 from collections import Counter
 from pathlib import Path
 
@@ -9,6 +6,8 @@ import operator
 import math
 import random 
 import torch 
+
+# helper functions for dataset preprocessing
 
 def load_text8(file_path):
     if not os.path.exists(file_path):
@@ -47,6 +46,7 @@ def build_vocabulary(tokens, min_count, vocab_size):
             
     return word2idx, idx2word, corpus, word_freq
         
+# n.b., subsampling frequent here words improves the quality of the context we use.
     
 def subsample(corpus: list[int], word_freq: Counter, word2idx: dict[str, int], threshold: float)  -> list[int]:
     total_tokens = sum(word_freq.values())
@@ -77,6 +77,7 @@ def generate_skipgram_pairs(subsampled: list[int], window_size: int):
             yield (subsampled[i], subsampled[j])        
             
             
+# manifesting the generator into a list for efficient batch processing. 
 
 class SkipGramDataset(torch.utils.data.Dataset):
     def __init__(self, subsampled, window_size):
