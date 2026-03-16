@@ -11,8 +11,15 @@ def n_nearest_neighbours(word, n, word2idx, idx2word, embeddings):
     indices = torch.argsort(cosines, descending=True)[1:n+1]
     return [idx2word[i.item()] for i in indices]
 
-
-
+def analogy(word1, word2, word3, word2idx, idx2word, embeddings):
+    vector1 = embeddings[word2idx[word1]]
+    vector2 = embeddings[word2idx[word2]]
+    vector3 = embeddings[word2idx[word3]]
+    res_vector = vector2-vector1+vector3
+    cosines = torch.mv(embeddings, res_vector) / (torch.norm(embeddings, dim = 1) * torch.norm(res_vector))
+    indices = torch.argsort(cosines, descending=True)[1:6]
+    exclude = {word2idx[word1], word2idx[word2], word2idx[word3]}
+    return [idx2word[i.item()] for i in indices if i.item() not in exclude][:5]
 
 def plot_tsne(words, word2idx, embeddings):
     res = []
@@ -34,4 +41,5 @@ def plot_tsne(words, word2idx, embeddings):
         plt.annotate(word, (x,y))
         
     plt.show()
+    
         
