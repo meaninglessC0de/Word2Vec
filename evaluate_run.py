@@ -15,6 +15,8 @@ print(evaluate.n_nearest_neighbours("apple", 5, word2idx, idx2word, embeddings))
 # evaluating with the paralleogram model: i.e., paris is to france as berlin is to "X":
 print(evaluate.analogy("paris", "france", "berlin", word2idx, idx2word, embeddings))
 
+# evaluating biases:
+print(evaluate.analogy("man", "doctor", "woman", word2idx, idx2word, embeddings))
 
 # various rough categories of words
 words = [

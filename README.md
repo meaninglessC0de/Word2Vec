@@ -39,3 +39,7 @@ For the following words, the plot is as follows:
 `
 
 ![Eval](./images/eval.png)
+
+### References & Acknowledgements
+This is a canonical implementation of skip-gram Word2Vec as delineated in
+Chapter 5, Embeddings Speech and Language Processing by Jurafsky & Martin. 
